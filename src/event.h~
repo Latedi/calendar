@@ -1,0 +1,10 @@
+class Event
+{
+private:
+	char* date;
+	char* data;
+public:
+	Event(char* date, char* data);
+	Event(char* path);
+	void printData();
+};

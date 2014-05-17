@@ -1,0 +1,14 @@
+#include "event.h"
+#include <list>
+
+class Calendar
+{
+private:
+	char* root;
+	std::list<Event> eventList;
+public:
+	Calendar();
+	int getAllEvents();
+	int createEvent();
+	int deleteEvent();
+};
