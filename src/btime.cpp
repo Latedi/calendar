@@ -12,13 +12,13 @@ BTime::BTime()
 	minute = 0;
 }
 
-BTime::BTime(int y, int mo, int d, int h, int mi)
+BTime::BTime(int year, int month, int day, int hour, int minute)
 {
-	year = y;
-	month = mo;
-	day = d;
-	hour = h;
-	minute = mi;
+	this->year = year;
+	this->month = month;
+	this->day = day;
+	this->hour = hour;
+	this->minute = minute;
 }
 
 //Normalize values somewhat

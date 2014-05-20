@@ -1,9 +1,10 @@
-#include <ctime>
 #include "event.h"
 
-Event::Event(char* date, char* data)
+Event::Event(BTime time, char* data, char* title)
 {
-	
+	this->time = time;
+	this->data = data;
+	this->title = title;
 }
 
 Event::Event(char* path)

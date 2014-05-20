@@ -1,8 +1,14 @@
 #ifndef CALENDAR_H
 #define CALENDAR_H
 
-#include "event.h"
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 #include <list>
+#include <stdlib.h>
+#include <dirent.h>
+
+#include "event.h"
 
 class Calendar
 {

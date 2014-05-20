@@ -10,7 +10,7 @@ class FileHandler
 private:
 	char* rootDir;
 public:
-	FileHandler(char* dir);
+	FileHandler(char* rootDir);
 	list getDirList();
 	list getDirContents(char* dir);
 	Event getEvent(char* path);

@@ -15,7 +15,7 @@ private:
 	int minute;
 public:
 	BTime();
-	BTime(int y, int mo, int d, int h, int mi);
+	BTime(int year, int month, int day, int hour, int minute);
 	void removeExcess();
 	std::string toString();
 	void insertZeros(char *buff, int len);

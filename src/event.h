@@ -4,10 +4,11 @@
 class Event
 {
 private:
-	char* date;
+	time_t time;
+	char* title;
 	char* data;
 public:
-	Event(char* date, char* data);
+	Event(BTime time, char* data, char* title);
 	Event(char* path);
 	void printData();
 };
