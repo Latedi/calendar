@@ -4,8 +4,9 @@ Calendar::Calendar()
 {
 	//Get the path to the current directory and save in the root variable.
 	//Linux dependent.
-	char buff[1024];
-	ssize_t len = readlink("/proc/self/exe", buff, sizeof(buff)-1);
+	char buff[DEFAULT_BUFF_LENGTH];
+	ssize_t len = readlink("/proc/self/exe", buff, DEFAULT_BUFF_LENGTH-1);	
+
 	if(len != -1)
 	{
 		buff[len] = '\0';
@@ -17,14 +18,19 @@ Calendar::Calendar()
 				break;
 			}
 		}
-		strcpy(root, buff);
+		root = std::string(buff);
 	}
 	else { printf("Error reading path\n"); exit(1); }
 }
 
+std::string Calendar::getRoot()
+{
+	return root;
+}
+
+//Load all events into the list
 int Calendar::getAllEvents()
 {
-	//Load all events into the list
 	return 0;
 }
 
@@ -56,8 +62,8 @@ int Calendar::createEvent()
 	return 0;
 }
 
+//Remove an event
 int Calendar::deleteEvent()
 {
-	//Remove an event
 	return 0;
 }

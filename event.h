@@ -1,17 +1,20 @@
 #ifndef EVENT_H
 #define EVENT_H
 
+#include <string>
+#include <list>
+
 #include "btime.h"
 
 class Event
 {
 private:
 	BTime time;
-	char* title;
-	char* data;
+	std::string title;
+	std::string data;
 public:
-	Event(BTime time, char* data, char* title);
-	Event(char* path);
+	Event(BTime time, std::string data, std::string title);
+	Event(std::string path);
 	void printEvent();
 };
 

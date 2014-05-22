@@ -1,6 +1,8 @@
 #ifndef CALENDAR_H
 #define CALENDAR_H
 
+#define DEFAULT_BUFF_LENGTH 2014
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -13,13 +15,14 @@
 class Calendar
 {
 private:
-	char* root;
+	std::string root;
 	std::list<Event> eventList;
 public:
 	Calendar();
 	int getAllEvents();
 	int createEvent();
 	int deleteEvent();
+	std::string getRoot();
 };
 
 #endif /* CALENDAR_H */
