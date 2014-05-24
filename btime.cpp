@@ -10,6 +10,7 @@ BTime::BTime()
 	day = 0;
 	hour = 0;
 	minute = 0;
+	removeExcess();
 }
 
 BTime::BTime(int year, int month, int day, int hour, int minute)
@@ -20,6 +21,24 @@ BTime::BTime(int year, int month, int day, int hour, int minute)
 	this->hour = hour;
 	this->minute = minute;
 	removeExcess();
+}
+
+//Create object using directory name created by the Event class
+BTime::BTime(std::string str)
+{
+	if(str.length() == 16 && str[4] == '-' && str[7] == '-' && str[10] == '_' && str[13] == ':')
+	{
+		year = atoi(str.substr(0, 4).c_str());
+		month = atoi(str.substr(5, 7).c_str());
+		day = atoi(str.substr(8, 10).c_str());
+		hour = atoi(str.substr(11, 13).c_str());
+		minute = atoi(str.substr(14, 16).c_str());
+	}
+	else
+	{
+		printf("Could not create BTime object from the following data: %s\n", str.c_str());
+		BTime();
+	}
 }
 
 //Normalize values
@@ -65,7 +84,7 @@ std::string BTime::toString()
 	return str;
 }
 
-//Add the variable to the res array along with extra zeros and delimiter characters.
+//Add extra zeros and delimiter characters to the values.
 std::string BTime::formatString(int var, int len, bool insertDelimiter, char delimiter)
 {
 	std::ostringstream os;

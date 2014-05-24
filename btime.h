@@ -2,9 +2,9 @@
 #define BTIME_H
 
 #include <string>
-#include <cstring>
-#include <stdio.h>
 #include <sstream>
+#include <cstdlib>
+#include <stdio.h>
 
 class BTime
 {
@@ -21,6 +21,7 @@ private:
 public:
 	BTime();
 	BTime(int year, int month, int day, int hour, int minute);
+	BTime(std::string str);
 	std::string toString();
 };
 

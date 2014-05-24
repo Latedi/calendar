@@ -10,19 +10,25 @@ Event::Event(BTime time, std::string data, std::string title)
 //Load data from a file
 Event::Event(std::string path)
 {
-	int firstSlash = -1;
+	int lastSlash = -1;
+	int nextLastSlash = -1;
 	for(int i = path.length(); i >= 0; i--)
 	{
-		if(path[i] == '/')
+		if(lastSlash == -1 && path[i] == '/')
 		{
-			firstSlash = path.length() - i;
+			lastSlash = path.length() - i;
+		}
+		else if(nextLastSlash == -1 && path[i] == '/')
+		{
+			nextLastSlash = path.length() - i;
 			break;
 		}
 	}
 
-	if(firstSlash != -1)
+	if(lastSlash != -1 && lastSlash != path.length())
 	{
-		this->title = path.substr(firstSlash);
+		title = path.substr(path.length() - lastSlash + 1);
+		time = BTime(path.substr(path.length() - nextLastSlash + 1, nextLastSlash - lastSlash - 1));
 
 		std::ifstream eventFile;
 		eventFile.open(path.c_str());
@@ -33,7 +39,7 @@ Event::Event(std::string path)
 			data = "";
 			while(getline(eventFile, line))
 			{
-				data += line;
+				data += line + "\n";
 			}
 			eventFile.close();
 		}
@@ -43,15 +49,14 @@ Event::Event(std::string path)
 	else
 		printf("Could not find path in %s\n", path.c_str());
 
-	printf("EVENT LOADED\n");
 	printEvent();
 }
 
 //Print all information on the event to stdout
 void Event::printEvent()
 {
-	time.toString(title);
+	std::string t = time.toString();
 
-	printf("%s\t%s\n", title.c_str(), buff);
+	printf("%s\t%s\n", title.c_str(), t.c_str());
 	printf("%s\n", data.c_str());
 }
