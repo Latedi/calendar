@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include <stdio.h>
+#include <sstream>
 
 class BTime
 {
@@ -14,14 +15,13 @@ private:
 	int hour;
 	int minute;
 
-	void insertZeros(char *buff, int len);
-	void insertChar(char *buff, char ch);
+	std::string insertZeros(std::string str, int len);
 	void removeExcess();
-	void addCharArrays(char *res, int var, int len, bool insertDelimiter, char delimiter);
+	std::string formatString(int var, int len, bool insertDelimiter, char delimiter);
 public:
 	BTime();
 	BTime(int year, int month, int day, int hour, int minute);
-	int toString(char* buff, int size);
+	std::string toString();
 };
 
 #endif /* BTIME_H */

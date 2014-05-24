@@ -58,12 +58,21 @@ std::list<Event> FileHandler::getDirContents(std::string directory)
 	{
 		if(ent->d_type == DT_REG)
 		{
-			Event ev = Event(std::string(ent->d_name));
+			Event ev = Event(std::string(directory + "/" + ent->d_name));
 			res.push_back(ev);
 		}
 	}
 
 	return res;
+}
+
+void FileHandler::printList(std::list<std::string> l)
+{
+	std::list<std::string>::iterator it;
+	for(it = l.begin(); it != l.end(); it++)
+	{
+		std::cout << *it << "\n";
+	}
 }
 
 Event FileHandler::getEvent(char* path)

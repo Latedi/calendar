@@ -52,53 +52,38 @@ void BTime::removeExcess()
 }
 
 //Create a string from the values in the class
-int BTime::toString(char* buff, int size)
+std::string BTime::toString()
 {
-	if(size != 16)
-		return -1;
+	std::string str;
 
-	addCharArrays(buff, year, 5, false, '-');
-	addCharArrays(buff, month, 3, true, '-');
-	addCharArrays(buff, day, 3, true, '-');
-	addCharArrays(buff, hour, 3, true, '_');
-	addCharArrays(buff, minute, 3, true, ':');
+	str = formatString(year, 5, false, '-');
+	str += formatString(month, 3, true, '-');
+	str += formatString(day, 3, true, '-');
+	str += formatString(hour, 3, true, '_');
+	str += formatString(minute, 3, true, ':');
 
+	return str;
 }
 
 //Add the variable to the res array along with extra zeros and delimiter characters.
-void BTime::addCharArrays(char *res, int var, int len, bool insertDelimiter, char delimiter)
+std::string BTime::formatString(int var, int len, bool insertDelimiter, char delimiter)
 {
-	char buff[len];
-	snprintf(buff, len, "%d", var);
-	insertZeros(buff, len);
+	std::ostringstream os;
+	os << var;
+	std::string str = os.str();
+	str = insertZeros(str, len);
 	if(insertDelimiter)
-		insertChar(res, delimiter);
-	strcpy(&res[strlen(res)], buff);
+		str = delimiter + str;
+	return str;
 }
 
 //Insert extra zeros in front of the value if it's not long enough.
 //Ex. 2014 -> 2014 but 56 -> 0056
-void BTime::insertZeros(char *buff, int len)
+std::string BTime::insertZeros(std::string str, int len)
 {
-	int buffLen = strlen(buff);
-	while(buffLen < len - 1)
+	while(str.length() < len - 1)
 	{
-		for(int i = buffLen; i > -1; i--)
-		{
-			if(i > 0)
-				buff[i] = buff[i-1];
-			else
-				buff[i] = '0';
-		}
-		buffLen = strlen(buff);
+		str = "0" + str;
 	}
-	buff[len-1] = '\0';
-}
-
-//Insert a character at the end of the array and move the null terminator accordingly.
-void BTime::insertChar(char *buff, char ch)
-{
-	int len = strlen(buff);
-	buff[len] = ch;
-	buff[len+1] = '\0';
+	return str;
 }

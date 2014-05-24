@@ -23,6 +23,7 @@ public:
 	std::list<std::string> getDirList();
 	std::list<Event> getDirContents(std::string directory);
 	Event getEvent(char* path);
+	void printList(std::list<std::string> l);
 };
 
 #endif /* FILEHANDLER_H */
