@@ -6,11 +6,10 @@
 BTime::BTime()
 {
 	year = 0;
-	month = 0;
-	day = 0;
+	month = 1;
+	day = 1;
 	hour = 0;
 	minute = 0;
-	removeExcess();
 }
 
 BTime::BTime(int year, int month, int day, int hour, int minute)
@@ -20,7 +19,7 @@ BTime::BTime(int year, int month, int day, int hour, int minute)
 	this->day = day;
 	this->hour = hour;
 	this->minute = minute;
-	removeExcess();
+	normalize();
 }
 
 //Create object using directory name created by the Event class
@@ -33,6 +32,7 @@ BTime::BTime(std::string str)
 		day = atoi(str.substr(8, 10).c_str());
 		hour = atoi(str.substr(11, 13).c_str());
 		minute = atoi(str.substr(14, 16).c_str());
+		normalize();
 	}
 	else
 	{
@@ -42,7 +42,7 @@ BTime::BTime(std::string str)
 }
 
 //Normalize values
-void BTime::removeExcess()
+void BTime::normalize()
 {
 	if(year > 9999)
 		year = 9999;

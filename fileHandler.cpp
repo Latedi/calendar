@@ -11,7 +11,7 @@ FileHandler::FileHandler(std::string rootDir)
 //This function is responsible for loading all event folders into a list which is then returned
 std::list<std::string> FileHandler::getDirList()
 {
-	std::list<std::string> files;
+	std::list<std::string> dirList;
 	DIR *dir;
 	struct dirent* ent;
 
@@ -30,11 +30,11 @@ std::list<std::string> FileHandler::getDirList()
 		if(ent->d_type == DT_DIR && strcmp(ent->d_name, ".") != 0 && strcmp(ent->d_name, "..") != 0)
 		{
 			std::string fullPath = rootDir + "/" + ent->d_name;
-			files.push_back(fullPath.c_str());
+			dirList.push_back(fullPath.c_str());
 		}
 	}
 
-	return files;
+	return dirList;
 }
 
 //This function loads up all events from a directory and returns them in a list

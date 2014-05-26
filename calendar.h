@@ -11,12 +11,14 @@
 #include <dirent.h>
 
 #include "event.h"
+#include "FileHandler.h"
 
 class Calendar
 {
 private:
 	std::string root;
 	std::list<Event> eventList;
+	FileHandler fileHandler;
 public:
 	Calendar();
 	int getAllEvents();

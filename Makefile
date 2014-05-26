@@ -8,4 +8,7 @@ HDR = $(SRC:.cpp=.h)
 EXE = planner
 
 all:
-	$(CC) -o $(EXE) $(SRC) $(MAIN) $(CFLAGS) 
+	$(CC) -o $(EXE) $(SRC) $(MAIN) $(CFLAGS)
+
+uninstall:
+	rm $(EXE) 

@@ -21,6 +21,8 @@ Calendar::Calendar()
 		root = std::string(buff);
 	}
 	else { printf("Error reading path\n"); exit(1); }
+
+	fileHandler = FileHandler(root);
 }
 
 std::string Calendar::getRoot()
@@ -28,9 +30,19 @@ std::string Calendar::getRoot()
 	return root;
 }
 
-//Load all events into the list
+//Load all events into a list
 int Calendar::getAllEvents()
 {
+	eventList.clear();
+	std::list<std::string> dirList = fileHandler.getDirList();
+	std::list<std::string>::iterator it;
+
+	for(it = dirList.begin(); it != dirList.end(); it++)
+	{
+		std::list<Event> ev = fileHandler.getDirContents(*it);
+		eventList.merge(ev);
+	}
+
 	return 0;
 }
 

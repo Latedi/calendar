@@ -16,7 +16,7 @@ private:
 	int minute;
 
 	std::string insertZeros(std::string str, int len);
-	void removeExcess();
+	void normalize();
 	std::string formatString(int var, int len, bool insertDelimiter, char delimiter);
 public:
 	BTime();
