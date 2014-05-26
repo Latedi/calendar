@@ -11,7 +11,7 @@
 #include <dirent.h>
 
 #include "event.h"
-#include "FileHandler.h"
+#include "fileHandler.h"
 
 class Calendar
 {

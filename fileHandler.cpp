@@ -2,6 +2,11 @@
 
 //This class handles reading and writing to event files
 
+FileHandler::FileHandler()
+{
+	exit(3);
+}
+
 FileHandler::FileHandler(std::string rootDir)
 {
 	rootDir += FILE_DIR;
@@ -24,7 +29,7 @@ std::list<std::string> FileHandler::getDirList()
 		exit(1);
 	}
 
-	//Find all subdirectories to the event directory
+	//Find all subdirectories to the event directory and watch out for . and ..
 	while((ent = readdir(dir)) != NULL)
 	{
 		if(ent->d_type == DT_DIR && strcmp(ent->d_name, ".") != 0 && strcmp(ent->d_name, "..") != 0)
@@ -66,6 +71,36 @@ std::list<Event> FileHandler::getDirContents(std::string directory)
 	return res;
 }
 
+int FileHandler::saveEvent(Event ev)
+{
+	std::string dirName = ev.getTimeString();
+	DIR *dir;
+	struct dirent* ent;	
+
+	dir = opendir(rootDir.c_str());
+	if(dir == NULL)
+	{
+		printf("Error in saveEvent. %s\n", strerror(errno));
+		printf("%s\n", rootDir.c_str());
+		return 1;
+	}
+
+	bool directoryExists = false;
+
+	//Check to see if the directory already exists
+	while((ent = readdir(dir)) != NULL)
+	{
+		if(ent->d_type == DT_DIR && strcmp(ent->d_name, dirName.c_str()) == 0)
+		{
+			printf("Directory exists: %s\n", (rootDir + "/" + FILE_DIR + "/" + ent->d_name).c_str());
+			directoryExists = true;
+		}
+		else
+			printf("Didn't match\n");
+	}
+}
+
+//Used for debug purposes
 void FileHandler::printList(std::list<std::string> l)
 {
 	std::list<std::string>::iterator it;

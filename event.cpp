@@ -52,6 +52,11 @@ Event::Event(std::string path)
 	printEvent();
 }
 
+std::string Event::getTimeString()
+{
+	return time.toString();
+}
+
 //Print all information on the event to stdout
 void Event::printEvent()
 {

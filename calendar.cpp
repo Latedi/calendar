@@ -5,7 +5,7 @@ Calendar::Calendar()
 	//Get the path to the current directory and save in the root variable.
 	//Linux dependent.
 	char buff[DEFAULT_BUFF_LENGTH];
-	ssize_t len = readlink("/proc/self/exe", buff, DEFAULT_BUFF_LENGTH-1);	
+	ssize_t len = readlink("/proc/self/exe", buff, DEFAULT_BUFF_LENGTH - 1);	
 
 	if(len != -1)
 	{
@@ -40,7 +40,7 @@ int Calendar::getAllEvents()
 	for(it = dirList.begin(); it != dirList.end(); it++)
 	{
 		std::list<Event> ev = fileHandler.getDirContents(*it);
-		eventList.merge(ev);
+		eventList.splice(eventList.end(), ev);
 	}
 
 	return 0;
