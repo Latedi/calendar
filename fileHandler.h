@@ -2,7 +2,6 @@
 #define FILEHANDLER_H
 
 #define FILE_DIR "/events"
-#define PATH_DEFAULT_BUFFER_LENGTH 512
 
 #include <list>
 #include <dirent.h>
@@ -11,6 +10,8 @@
 #include <stdlib.h>
 #include <iostream>
 #include <string>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "event.h"
 

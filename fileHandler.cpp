@@ -92,12 +92,53 @@ int FileHandler::saveEvent(Event ev)
 	{
 		if(ent->d_type == DT_DIR && strcmp(ent->d_name, dirName.c_str()) == 0)
 		{
-			printf("Directory exists: %s\n", (rootDir + "/" + FILE_DIR + "/" + ent->d_name).c_str());
 			directoryExists = true;
 		}
-		else
-			printf("Didn't match\n");
 	}
+
+	std::string fullPath = rootDir;
+	fullPath += "/";
+	fullPath += ev.getTimeString();
+
+	//Check if the file exists, or create the directory
+	if(directoryExists)
+	{	
+		dir = opendir(fullPath.c_str());
+
+		if(dir == NULL)
+		{
+			printf("Something went terribly wrong. %s\n", strerror(errno));
+			printf("%s\n", fullPath.c_str());
+			exit(1);
+		}
+
+		//Does the file exist
+		while((ent = readdir(dir)) != NULL)
+		{
+			if(ent->d_type == DT_REG && strcmp(ent->d_name, ev.getTitle().c_str()) == 0)
+			{
+				printf("The event already exists (duplicate?)\n");
+				return -1;
+			}
+		}
+	}
+	else
+	{
+		//Create the directory
+		int res = mkdir(fullPath.c_str(), 0777);
+		if(res != 0)
+		{
+			printf("Error in saveEvent. %s\n", strerror(errno));
+			return -1;
+		}
+	}
+
+	//Create the file
+	std::string fullFileName = fullPath + "/" + ev.getTitle();
+	std::ofstream eventFile(fullFileName.c_str());
+	eventFile << ev.getData();
+
+	return 0;
 }
 
 //Used for debug purposes

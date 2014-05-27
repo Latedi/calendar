@@ -52,6 +52,16 @@ Event::Event(std::string path)
 	printEvent();
 }
 
+std::string Event::getTitle()
+{
+	return title;
+}
+
+std::string Event::getData()
+{
+	return data;
+}
+
 std::string Event::getTimeString()
 {
 	return time.toString();

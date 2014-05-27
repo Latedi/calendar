@@ -2,6 +2,7 @@
 
 Calendar::Calendar()
 {
+	printf("Got into the constructor\n");
 	//Get the path to the current directory and save in the root variable.
 	//Linux dependent.
 	char buff[DEFAULT_BUFF_LENGTH];
@@ -64,7 +65,7 @@ int Calendar::createEvent()
 	char title[32];
 	printf("Input event title: "); scanf("%s", title);
 
-	char data[1024];
+	char data[DEFAULT_BUFF_LENGTH];
 	printf("Input information on the event:\n"); scanf(" %s", data);
 
 	Event newEvent = Event(time, data, title);

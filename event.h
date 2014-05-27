@@ -16,6 +16,8 @@ private:
 public:
 	Event(BTime time, std::string data, std::string title);
 	Event(std::string path);
+	std::string getTitle();
+	std::string getData();
 	std::string getTimeString();
 	void printEvent();
 };
