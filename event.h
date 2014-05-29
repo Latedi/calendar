@@ -14,11 +14,17 @@ private:
 	std::string title;
 	std::string data;
 public:
+	Event();
 	Event(BTime time, std::string data, std::string title);
 	Event(std::string path);
-	std::string getTitle();
-	std::string getData();
+	Event(const Event &ev);
+	std::string getTitle() const;
+	std::string getData() const;
 	std::string getTimeString();
+	BTime getTime() const;
+	void setTitle(std::string title);
+	void setData(std::string data);
+	void setTime(BTime time);
 	void printEvent();
 };
 

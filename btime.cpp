@@ -12,6 +12,15 @@ BTime::BTime()
 	minute = 0;
 }
 
+BTime::BTime(const BTime &time)
+{
+	year = time.getYear();
+	month = time.getMonth();
+	day = time.getDay();
+	hour = time.getHour();
+	minute = time.getMinute();
+}
+
 BTime::BTime(int year, int month, int day, int hour, int minute)
 {
 	this->year = year;
@@ -105,4 +114,29 @@ std::string BTime::insertZeros(std::string str, int len)
 		str = "0" + str;
 	}
 	return str;
+}
+
+int BTime::getYear() const
+{
+	return year;
+}
+
+int BTime::getMonth() const
+{
+	return month;
+}
+
+int BTime::getDay() const
+{
+	return day;
+}
+
+int BTime::getHour() const
+{
+	return hour;
+}
+
+int BTime::getMinute() const
+{
+	return minute;
 }

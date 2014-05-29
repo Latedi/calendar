@@ -25,7 +25,8 @@ public:
 	std::list<std::string> getDirList();
 	std::list<Event> getDirContents(std::string directory);
 	int saveEvent(Event ev);
-	Event getEvent(char* path);
+	int editEvent(Event oldEvent, Event newEvent);
+	std::string findEvent(Event ev);
 	void printList(std::list<std::string> l);
 };
 

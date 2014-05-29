@@ -22,7 +22,13 @@ public:
 	BTime();
 	BTime(int year, int month, int day, int hour, int minute);
 	BTime(std::string str);
+	BTime(const BTime &time);
 	std::string toString();
+	int getYear() const;
+	int getMonth() const;
+	int getDay() const;
+	int getHour() const;
+	int getMinute() const;
 };
 
 #endif /* BTIME_H */

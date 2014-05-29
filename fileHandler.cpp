@@ -4,7 +4,7 @@
 
 FileHandler::FileHandler()
 {
-	
+	rootDir = "";
 }
 
 FileHandler::FileHandler(std::string rootDir)
@@ -141,7 +141,47 @@ int FileHandler::saveEvent(Event ev)
 	return 0;
 }
 
-//Used for debug purposes
+//Find an Event and return the path
+std::string FileHandler::findEvent(Event ev)
+{
+	std::string res = "";
+
+	return res;
+}
+
+//Edit an existing event
+int FileHandler::editEvent(Event oldEvent, Event newEvent)
+{
+	std::string fullPath = rootDir;
+	fullPath += "/";
+	fullPath += oldEvent.getTimeString();
+	fullPath += "/";
+	fullPath += oldEvent.getTitle();
+
+	if(strcmp(oldEvent.getTitle().c_str(), newEvent.getTitle().c_str()) != 0)
+	{
+		std::string newPath = rootDir;
+		newPath += "/";
+		newPath += newEvent.getTimeString();
+		newPath += "/";
+		newPath += newEvent.getTitle();
+		return rename(fullPath.c_str(), newPath.c_str());
+	}
+	else if(strcmp(oldEvent.getData().c_str(), newEvent.getData().c_str()) != 0)
+	{
+		
+	}
+	else if(strcmp(oldEvent.getTimeString().c_str(), newEvent.getTimeString().c_str()) != 0)
+	{
+		
+	}
+	else
+		return -1;
+
+	return 0;
+}
+
+//Used for debugging purposes
 void FileHandler::printList(std::list<std::string> l)
 {
 	std::list<std::string>::iterator it;
@@ -149,9 +189,4 @@ void FileHandler::printList(std::list<std::string> l)
 	{
 		std::cout << *it << "\n";
 	}
-}
-
-Event FileHandler::getEvent(char* path)
-{
-
 }

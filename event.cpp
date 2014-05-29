@@ -1,5 +1,17 @@
 #include "event.h"
 
+Event::Event()
+{
+	
+}
+
+Event::Event(const Event &ev)
+{
+	this->time = BTime(ev.getTime());
+	this->data = ev.getData();
+	this->title = ev.getTitle();
+}
+
 Event::Event(BTime time, std::string data, std::string title)
 {
 	this->time = time;
@@ -48,16 +60,14 @@ Event::Event(std::string path)
 	}
 	else
 		printf("Could not find path in %s\n", path.c_str());
-
-	printEvent();
 }
 
-std::string Event::getTitle()
+std::string Event::getTitle() const
 {
 	return title;
 }
 
-std::string Event::getData()
+std::string Event::getData() const
 {
 	return data;
 }
@@ -65,6 +75,26 @@ std::string Event::getData()
 std::string Event::getTimeString()
 {
 	return time.toString();
+}
+
+BTime Event::getTime() const
+{
+	return time;
+}
+
+void Event::setTitle(std::string title)
+{
+	this->title = title;
+}
+
+void Event::setData(std::string data)
+{
+	this->data = data;
+}
+
+void Event::setTime(BTime time)
+{
+	this->time = BTime(time);
 }
 
 //Print all information on the event to stdout

@@ -7,11 +7,6 @@ Calendar::Calendar(std::string str)
 
 Calendar::Calendar()
 {
-	printf("Created\n");
-}
-
-/*Calendar::Calendar()
-{
 	printf("Got into the constructor\n");
 	//Get the path to the current directory and save in the root variable.
 	//Linux dependent.
@@ -34,14 +29,31 @@ Calendar::Calendar()
 	else { printf("Error reading path\n"); exit(1); }
 
 	fileHandler = FileHandler(root);
-}*/
+}
 
 std::string Calendar::getRoot()
 {
 	return root;
 }
 
-//Load all events into a list
+std::map<int, Event> Calendar::showAll()
+{
+	getAllEvents();
+	std::map<int, Event> res;
+	int i = 1;
+
+	std::list<Event>::iterator it;
+	for(it = eventList.begin(); it != eventList.end(); it++)
+	{
+		printf("%s%20s%3d\n", it->getTimeString().c_str(), it->getTitle().c_str(), i);
+		res[i] = *it;
+		i++;
+	}
+
+	return res;
+}
+
+//Load all events into the list
 int Calendar::getAllEvents()
 {
 	eventList.clear();
@@ -60,16 +72,7 @@ int Calendar::getAllEvents()
 //Take input to create a new Event
 int Calendar::createEvent()
 {
-	//Get a lot of input and put it in a BTime object
-	int y, mo, d, h, mi;	
-
-	printf("Input year: "); scanf("%d", &y);
-	printf("Input month: "); scanf("%d", &mo);
-	printf("Input day: "); scanf("%d", &d);
-	printf("Input hour: "); scanf("%d", &h);
-	printf("Input minute: "); scanf("%d", &mi);
-
-	BTime time = BTime(y, mo, d, h, mi);
+	BTime time = createBTime();
 
 	//Put event title and information in buffers
 	char title[32];
@@ -85,8 +88,27 @@ int Calendar::createEvent()
 	return 0;
 }
 
+void Calendar::editEvent(Event oldEvent, Event newEvent)
+{
+	fileHandler.editEvent(oldEvent, newEvent);
+}
+
+//Get a lot of input and put it in a BTime object
+BTime Calendar::createBTime()
+{
+	int y, mo, d, h, mi;	
+
+	printf("Input year: "); scanf("%d", &y);
+	printf("Input month: "); scanf("%d", &mo);
+	printf("Input day: "); scanf("%d", &d);
+	printf("Input hour: "); scanf("%d", &h);
+	printf("Input minute: "); scanf("%d", &mi);
+
+	return BTime(y, mo, d, h, mi);
+}
+
 //Remove an event
-int Calendar::deleteEvent()
+int Calendar::deleteEvent(Event ev)
 {
 	return 0;
 }
