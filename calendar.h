@@ -21,6 +21,7 @@ private:
 	FileHandler fileHandler;
 public:
 	Calendar();
+	Calendar(std::string str);
 	int getAllEvents();
 	int createEvent();
 	int deleteEvent();

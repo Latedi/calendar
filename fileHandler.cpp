@@ -4,7 +4,7 @@
 
 FileHandler::FileHandler()
 {
-	exit(3);
+	
 }
 
 FileHandler::FileHandler(std::string rootDir)

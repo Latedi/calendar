@@ -1,6 +1,16 @@
 #include "calendar.h"
 
+Calendar::Calendar(std::string str)
+{
+	printf("%s\n", str.c_str());
+}
+
 Calendar::Calendar()
+{
+	printf("Created\n");
+}
+
+/*Calendar::Calendar()
 {
 	printf("Got into the constructor\n");
 	//Get the path to the current directory and save in the root variable.
@@ -24,7 +34,7 @@ Calendar::Calendar()
 	else { printf("Error reading path\n"); exit(1); }
 
 	fileHandler = FileHandler(root);
-}
+}*/
 
 std::string Calendar::getRoot()
 {
