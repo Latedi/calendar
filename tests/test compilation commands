@@ -1,0 +1,3 @@
+gcc -o handlertest fileHandler.cpp fileHandlerTest.cpp calendar.cpp btime.cpp event.cpp -lstdc++
+gcc -o timetest btime.cpp timeTest.cpp -lstdc++
+gcc -o calendarTest calendar.cpp event.cpp fileHandler.cpp btime.cpp CalendarTest.cpp -lstdc++
