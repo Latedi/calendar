@@ -141,39 +141,61 @@ int FileHandler::saveEvent(Event ev)
 	return 0;
 }
 
-//Find an Event and return the path
-std::string FileHandler::findEvent(Event ev)
+//Delete an event
+int FileHandler::deleteEvent(Event ev)
 {
-	std::string res = "";
+	std::string path = rootDir + "/" + ev.getTimeString() + "/" + ev.getTitle();
+	if(std::ifstream(path.c_str()))
+	{
+		if(remove(path.c_str()) != 0)
+		{
+			printf("The event %s could not be deleted\n", ev.getTitle().c_str());
+			return -1;
+		}
+		else
+			printf("The event %s has been deleted\n", ev.getTitle().c_str());
+	}
+	else
+		return -1;
 
-	return res;
+	return 0;
 }
 
 //Edit an existing event
 int FileHandler::editEvent(Event oldEvent, Event newEvent)
 {
-	std::string fullPath = rootDir;
-	fullPath += "/";
-	fullPath += oldEvent.getTimeString();
-	fullPath += "/";
-	fullPath += oldEvent.getTitle();
+	std::string oldPath = rootDir + "/" + oldEvent.constructPath();
 
+	//Change the title
 	if(strcmp(oldEvent.getTitle().c_str(), newEvent.getTitle().c_str()) != 0)
 	{
-		std::string newPath = rootDir;
-		newPath += "/";
-		newPath += newEvent.getTimeString();
-		newPath += "/";
-		newPath += newEvent.getTitle();
-		return rename(fullPath.c_str(), newPath.c_str());
+		std::string newPath = rootDir + "/" + newEvent.constructPath();
+		if(rename(oldPath.c_str(), newPath.c_str()) != 0)
+			printf("Failed to rename file\n");
+		else
+			printf("%s Renamed to %s\n", oldEvent.getTitle().c_str(), newEvent.getTitle().c_str());
 	}
+	//Change the data
 	else if(strcmp(oldEvent.getData().c_str(), newEvent.getData().c_str()) != 0)
 	{
-		
+		std::ofstream eventFile(oldPath.c_str());
+		eventFile << newEvent.getData();
+		printf("The contents of %s has been changed.\n", oldEvent.getTitle().c_str());
 	}
+	//Change the date and time
 	else if(strcmp(oldEvent.getTimeString().c_str(), newEvent.getTimeString().c_str()) != 0)
 	{
-		
+		std::string newPath = rootDir + "/" + newEvent.constructPath(); 
+		std::ofstream eventFile(newPath.c_str());
+		eventFile << newEvent.getData();
+		deleteEvent(oldEvent);
+		/*std::string newPath = rootDir + "/" + newEvent.constructPath();
+		std::ifstream source(newPath, std::ios_base::openmode);
+		if(rename(oldPath.c_str(), newPath.c_str()) != 0)
+			printf("Failed to rename file\n");
+		else
+			printf("%s has been moved from %s to %s\n", oldEvent.getTitle().c_str(),
+				oldEvent.getTimeString().c_str(), newEvent.getTimeString().c_str());*/
 	}
 	else
 		return -1;

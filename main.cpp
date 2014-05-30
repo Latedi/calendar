@@ -27,13 +27,16 @@ int main(int argc, char *argv[])
 		case 'o':
 		{
 			std::map<int, Event> events = cal.showAll();
-			int openInput = -1;
+			int openInput = -2;
 
-			while(openInput == -1)
+			while(openInput == -2)
 			{
-				printf("Which event would you like to open? insert the number.\n");
+				printf("Which event would you like to open? insert the number or -1 to go back.\n");
 				scanf(" %d", &openInput);
 			}
+
+			if(openInput == -1)
+				break;
 
 			std::map<int, Event>::iterator it;
 			for(it = events.begin(); it != events.end(); it++)
@@ -95,7 +98,6 @@ int main(int argc, char *argv[])
 					default:
 						break;
 					}
-
 					break;
 				}
 			}

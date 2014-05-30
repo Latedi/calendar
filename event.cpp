@@ -62,6 +62,11 @@ Event::Event(std::string path)
 		printf("Could not find path in %s\n", path.c_str());
 }
 
+std::string Event::constructPath()
+{
+	return getTimeString() + "/" + title;
+}
+
 std::string Event::getTitle() const
 {
 	return title;

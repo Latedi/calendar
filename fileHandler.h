@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -26,7 +27,7 @@ public:
 	std::list<Event> getDirContents(std::string directory);
 	int saveEvent(Event ev);
 	int editEvent(Event oldEvent, Event newEvent);
-	std::string findEvent(Event ev);
+	int deleteEvent(Event ev);
 	void printList(std::list<std::string> l);
 };
 

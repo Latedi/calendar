@@ -22,6 +22,7 @@ public:
 	std::string getData() const;
 	std::string getTimeString();
 	BTime getTime() const;
+	std::string constructPath();
 	void setTitle(std::string title);
 	void setData(std::string data);
 	void setTime(BTime time);

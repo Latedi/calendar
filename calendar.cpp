@@ -82,15 +82,14 @@ int Calendar::createEvent()
 	printf("Input information on the event:\n"); scanf(" %s", data);
 
 	Event newEvent = Event(time, data, title);
-	printf("-------------------\n");
-	newEvent.printEvent();
+	fileHandler.saveEvent(newEvent);
 
 	return 0;
 }
 
-void Calendar::editEvent(Event oldEvent, Event newEvent)
+int Calendar::editEvent(Event oldEvent, Event newEvent)
 {
-	fileHandler.editEvent(oldEvent, newEvent);
+	return fileHandler.editEvent(oldEvent, newEvent);
 }
 
 //Get a lot of input and put it in a BTime object
