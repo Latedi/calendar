@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 
 					printf("What do you want to do? edit [t]itle, edit [d]ata, edit d[a]te, d[e]lete, [b]ack\n");
 					scanf(" %c", &input);
-					char editInput[DEFAULT_BUFF_LENGTH];
+					std::string editInput;
 					Event evNew = Event(ev);
 
 					switch(input)
@@ -56,7 +56,9 @@ int main(int argc, char *argv[])
 					case 't':
 					{
 						printf("Enter new title: ");
-						scanf(" %s", editInput);
+						std::cin.get();
+						std::getline(std::cin, editInput);
+						std::cin.sync();
 						evNew.setTitle(editInput);
 						cal.editEvent(ev, evNew);
 						break;
@@ -64,7 +66,9 @@ int main(int argc, char *argv[])
 					case 'd':
 					{
 						printf("Enter new data: ");
-						scanf(" %s", editInput);
+						std::cin.get();
+						std::getline(std::cin, editInput);
+						std::cin.sync();
 						evNew.setData(editInput);
 						cal.editEvent(ev, evNew);
 						break;

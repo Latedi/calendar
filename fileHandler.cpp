@@ -160,9 +160,7 @@ int FileHandler::deleteEvent(Event ev)
 		return -1;
 	}
 
-	printf("The event %s has been deleted\n", ev.getTitle().c_str());
 	deleteEmptyDirectories();
-
 	return 0;
 }
 
@@ -200,8 +198,6 @@ void FileHandler::deleteEmptyDirectories()
 		{
 			if(remove(directory.c_str()) != 0)
 				printf("Could not remove directory: %s\n", directory.c_str());
-			else
-				printf("Deleted directory: %s\n", directory.c_str());
 		}
 	}
 }

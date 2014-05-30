@@ -85,12 +85,16 @@ int Calendar::createEvent()
 {
 	BTime time = createBTime();
 
-	//Put event title and information in buffers
-	char title[32];
-	printf("Input event title: "); scanf("%s", title);
+	std::string title;
+	printf("Input event title: ");
+	std::cin.get();
+	std::getline(std::cin, title);
+	std::cin.sync();
 
-	char data[DEFAULT_BUFF_LENGTH];
-	printf("Input information on the event:\n"); scanf(" %s", data);
+	std::string data;
+	printf("Input information on the event:\n");
+	std::getline(std::cin, data);
+	std::cin.sync();
 
 	Event newEvent = Event(time, data, title);
 	fileHandler.saveEvent(newEvent);
