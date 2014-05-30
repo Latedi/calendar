@@ -106,8 +106,9 @@ int main(int argc, char *argv[])
 		}
 		case 'a':
 		{
-			printf("What time is it now?\n");
+			printf("From what time do you want to list events?\n");
 			BTime time = cal.createBTime();
+			cal.showUpcoming(time);
 			break;
 		}
 		}

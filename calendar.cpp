@@ -52,6 +52,18 @@ std::map<int, Event> Calendar::showAll()
 	return res;
 }
 
+void Calendar::showUpcoming(BTime time)
+{
+	std::string comparisonString = time.toString();
+	getAllEvents();
+	std::list<Event>::iterator it;
+	for(it = eventList.begin(); it != eventList.end(); it++)
+	{
+		if(strcmp(comparisonString.c_str(), it->getTimeString().c_str()) < 0)
+			it->printEvent();
+	}
+}
+
 //Load all events into the list
 int Calendar::getAllEvents()
 {

@@ -25,6 +25,7 @@ public:
 	Calendar();
 	Calendar(std::string str);
 	std::map<int, Event> showAll();
+	void showUpcoming(BTime time);
 	BTime createBTime();
 	int editEvent(Event oldEvent, Event newEvent);
 	int getAllEvents();
