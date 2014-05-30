@@ -1,0 +1,4 @@
+Add proper unit tests
+Reduce the number of libraries included only for a couple of function calls
+Tidy up the directory by creating /include and /src folders. This requires the makefile to be remade.
+Update the spelling mistake on github (how?)
