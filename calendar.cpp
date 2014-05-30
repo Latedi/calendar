@@ -7,7 +7,6 @@ Calendar::Calendar(std::string str)
 
 Calendar::Calendar()
 {
-	printf("Got into the constructor\n");
 	//Get the path to the current directory and save in the root variable.
 	//Linux dependent.
 	char buff[DEFAULT_BUFF_LENGTH];
@@ -109,5 +108,5 @@ BTime Calendar::createBTime()
 //Remove an event
 int Calendar::deleteEvent(Event ev)
 {
-	return 0;
+	fileHandler.deleteEvent(ev);
 }

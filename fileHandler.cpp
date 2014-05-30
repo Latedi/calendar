@@ -11,6 +11,7 @@ FileHandler::FileHandler(std::string rootDir)
 {
 	rootDir += FILE_DIR;
 	this->rootDir = rootDir;
+	deleteEmptyDirectories();
 }
 
 //This function is responsible for loading all event folders into a list which is then returned
@@ -75,7 +76,7 @@ int FileHandler::saveEvent(Event ev)
 {
 	std::string dirName = ev.getTimeString();
 	DIR *dir;
-	struct dirent* ent;	
+	struct dirent* ent;
 
 	dir = opendir(rootDir.c_str());
 	if(dir == NULL)
@@ -160,7 +161,49 @@ int FileHandler::deleteEvent(Event ev)
 	}
 
 	printf("The event %s has been deleted\n", ev.getTitle().c_str());
+	deleteEmptyDirectories();
+
 	return 0;
+}
+
+//Delete all empty event directories
+void FileHandler::deleteEmptyDirectories()
+{
+	std::list<std::string> directories = getDirList();
+	std::list<std::string>::iterator it;
+
+	for(it = directories.begin(); it != directories.end(); it++)
+	{
+		DIR *dir;
+		struct dirent* ent;
+		std::string directory = (std::string) *it;
+
+		dir = opendir(directory.c_str());
+		if(dir == NULL)
+		{
+			printf("Error in deleteEmptyDirectories. %s\n", strerror(errno));
+			exit(1);
+		}
+
+		bool deleteDirectory = true;
+
+		while((ent = readdir(dir)) != NULL)
+		{
+			if(ent->d_type == DT_REG)
+			{
+				deleteDirectory = false;
+				break;
+			}
+		}
+
+		if(deleteDirectory)
+		{
+			if(remove(directory.c_str()) != 0)
+				printf("Could not remove directory: %s\n", directory.c_str());
+			else
+				printf("Deleted directory: %s\n", directory.c_str());
+		}
+	}
 }
 
 //Edit an existing event
@@ -187,17 +230,26 @@ int FileHandler::editEvent(Event oldEvent, Event newEvent)
 	//Change the date and time
 	else if(strcmp(oldEvent.getTimeString().c_str(), newEvent.getTimeString().c_str()) != 0)
 	{
+		DIR *dir;
+		struct dirent* ent;
+		std::string directory = rootDir + "/" + newEvent.getTimeString();
+
+		dir = opendir(directory.c_str());
+		if(dir == NULL)
+		{
+			if(mkdir(directory.c_str(), 0777) != 0)
+			{
+				printf("Could not create the new directory\n");
+				return -1;
+			}
+		}
+
 		std::string newPath = rootDir + "/" + newEvent.constructPath(); 
-		std::ofstream eventFile(newPath.c_str());
-		eventFile << newEvent.getData();
+		std::ofstream newEventFile(newPath.c_str());
+		std::ifstream oldEventFile(oldPath.c_str());
+		newEventFile << oldEventFile.rdbuf();
+
 		deleteEvent(oldEvent);
-		/*std::string newPath = rootDir + "/" + newEvent.constructPath();
-		std::ifstream source(newPath, std::ios_base::openmode);
-		if(rename(oldPath.c_str(), newPath.c_str()) != 0)
-			printf("Failed to rename file\n");
-		else
-			printf("%s has been moved from %s to %s\n", oldEvent.getTitle().c_str(),
-				oldEvent.getTimeString().c_str(), newEvent.getTimeString().c_str());*/
 	}
 	else
 		return -1;

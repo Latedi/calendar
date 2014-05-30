@@ -28,6 +28,7 @@ public:
 	int saveEvent(Event ev);
 	int editEvent(Event oldEvent, Event newEvent);
 	int deleteEvent(Event ev);
+	void deleteEmptyDirectories();
 	void printList(std::list<std::string> l);
 };
 
