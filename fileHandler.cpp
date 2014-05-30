@@ -152,12 +152,14 @@ int FileHandler::deleteEvent(Event ev)
 			printf("The event %s could not be deleted\n", ev.getTitle().c_str());
 			return -1;
 		}
-		else
-			printf("The event %s has been deleted\n", ev.getTitle().c_str());
 	}
 	else
+	{
+		printf("The event %s could not be deleted\n", ev.getTitle().c_str());
 		return -1;
+	}
 
+	printf("The event %s has been deleted\n", ev.getTitle().c_str());
 	return 0;
 }
 
